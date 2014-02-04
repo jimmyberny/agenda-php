@@ -1,0 +1,35 @@
+body {
+	padding-top: 50px;
+	padding-bottom: 50px;
+}
+
+.lista-items {
+	height: 400px;
+	overflow: auto;
+}
+
+.formulario {
+	max-height: 320px;
+	overflow: auto;
+}
+
+body.login {
+	padding-top: 40px;
+	padding-bottom: 40px;
+	background-color: #EEE;
+}
+
+form.login {
+	max-width: 300px;
+	margin: 0 auto;
+}
+
+div.item-list {
+	height: 400px;
+	overflow: auto;
+}
+
+div.item-form {
+	max-height: 320px; 
+	overflow: auto;
+}
