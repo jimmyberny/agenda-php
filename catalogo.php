@@ -17,6 +17,11 @@ function is_lista()
 	return compare_action( 'lista' );
 }
 
+function is_buscar()
+{
+	return compare_action( 'buscar' );
+}
+
 function is_guardar() 
 {
 	return compare_action( 'guardar' );

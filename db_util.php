@@ -42,6 +42,32 @@ function doQueryOne( $sentence ) {
 	return null;
 }
 
+function doQueryTo( $table, $where, $data )
+{
+	global $con;
+	$query = getSelect( $table, $where );
+	error_log( 'Custom where query: ' . $query );
+	$pss = $con->prepare( $query );
+
+	foreach ( $where as $cond )
+	{
+		error_log('Traying match ' . $cond . ' has value ' . $data[ $cond ] );
+		$pss->bindParam( ':' . $cond, $data[ $cond ] );
+	}
+
+	$pss->execute();
+	$rs = $pss->fetchAll( PDO::FETCH_ASSOC );
+	if ( is_array( $rs ) )
+	{
+		return $res = array('resultado' => true, 'items' => $rs);
+	}
+	else // Si es de cualquier otro tipo, significa que es erroneo
+	{
+		return $res = array('resultado' => false, 'error' => 'No se pudo completar la consulta');
+	}
+	return $res;
+}
+
 function doQueryById( $table, $data )
 {
 	global $con;

@@ -20,5 +20,9 @@ else if ( is_item() )
 {
 	echo json_encode( get_localidad( get_item_id() ) );
 }
+else if ( is_buscar() )
+{
+	echo json_encode( listar_localidad_by( $_GET ) );
+}
 
 ?>

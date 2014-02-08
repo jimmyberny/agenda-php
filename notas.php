@@ -5,13 +5,13 @@ require_once( 'admin.php' );
 <html lang="es">
     <head>
         <?php include 'basic_css.php' ?>
-        <title>Gestión de supervisores</title>
+        <title>Gestión de notas</title>
 
         <script id="lista-items-tmpl" type="text/template">
             <div class="list-group">
-            {{#supervisores}}
+            {{#notas}}
                 <a id="item-link-{{id}}" href="#" class="list-group-item" onclick="mostrarItem('{{id}}')">{{nombre}}</a>
-            {{/supervisores}}
+            {{/notas}}
             </div>
         </script>
     </head>
@@ -21,13 +21,13 @@ require_once( 'admin.php' );
         <!-- Termina el encabezado -->
 
         <div class="container">
-            <h1>Gestión de supervisores</h1>
+            <h1>Gestión de notas</h1>
             <!-- Nuevo/Editar usuario -->
             <div class="row">
                 <div class="col-md-3">
                     <div class="panel panel-default" >
                         <div class="panel-heading">
-                            <button class="btn btn-default" type="button" onclick="cargarLista()"><span class="glyphicon glyphicon-refresh"></span></button> Lista de supervisores
+                            <button class="btn btn-default" type="button" onclick="cargarLista()"><span class="glyphicon glyphicon-refresh"></span></button> Lista de notas
                         </div>
                         <div id="lista-items" class="item-list" >
                         </div>
@@ -64,12 +64,6 @@ require_once( 'admin.php' );
                                         <input id="nombre" name="nombre" type="text" class="form-control" required />
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="email" class="col-lg-3 control-label">Correo electronico</label>
-                                    <div class="col-lg-9">
-                                        <input id="email" name="email" type="text" class="form-control" required />
-                                    </div>
-                                </div>
                             </form>
                         </div>
                     </div>
@@ -87,7 +81,7 @@ require_once( 'admin.php' );
 
         <script type="text/javascript">
             // Url del controlador
-            var control = 'supervisor_controller.php';
+            var control = 'nota_controller.php';
             // Accion de la pantalla, ninguna por defecto
             var gblAccion = 'guardar';
             var selId = null;
@@ -111,9 +105,9 @@ require_once( 'admin.php' );
                         function(json) {
                             if (json.resultado) {
                                 cargarLista();
-                                uxSuccessAlert('Supervisor eliminado correctamente');
+                                uxSuccessAlert('Nota eliminada correctamente');
                             } else {
-                                uxErrorAlert('No se pudo eliminar el supervisor. ' + json.error );
+                                uxErrorAlert('No se pudo eliminar la nota. ' + json.error );
                             }
                         });
                 } else { // Guardar o actualizar un item
@@ -126,10 +120,10 @@ require_once( 'admin.php' );
                             if ( json.resultado ) {
                                 clearForm();
                                 cargarLista();
-                                uxSuccessAlert('El supervisor se ha guardado correctamente');
+                                uxSuccessAlert('La nota se ha guardado correctamente');
                             } else {
                                 // Mostrar error
-                                uxErrorAlert('No se pudo guardar el supervisor');
+                                uxErrorAlert('No se pudo guardar la nota');
                             }
                         });
                 }
@@ -151,7 +145,6 @@ require_once( 'admin.php' );
                         if ( json.resultado ) {
                             $('#id').val(json.item.id);
                             $('#nombre').val(json.item.nombre);
-                            $('#email').val(json.item.email);
                             $('#nombre').focus();
 
                             // Hacer seleccion visible
@@ -165,7 +158,7 @@ require_once( 'admin.php' );
                             // Mostrar error
                             gblAccion = null; // No hay accion posible
                             selId = null;
-                            uxErrorAlert('No se encontro el supervisor');
+                            uxErrorAlert('No se encontro la nota');
                         }
                     });
             }

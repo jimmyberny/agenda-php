@@ -77,6 +77,12 @@ require_once( 'admin.php' );
 										<input id="nombre" name="nombre" type="text" class="form-control" required />
 									</div>
 								</div>
+								<div class="form-group">
+									<label for="cp" class="col-lg-3 control-label">Codigo postal</label>
+									<div class="col-lg-9">
+										<input id="cp" name="cp" type="text" class="form-control" required />
+									</div>
+								</div>
 							</form>
 						</div>
 					</div>
@@ -166,6 +172,7 @@ require_once( 'admin.php' );
 							$('#id').val(json.item.id);
 							$('#municipio').val(json.item.id_municipio);
 							$('#nombre').val(json.item.nombre);
+							$('#cp').val(json.item.cp);
 							$('#municipio').focus();
 
 							// Hacer seleccion visible

@@ -71,7 +71,7 @@ require_once( 'admin.php' );
 									</div>
 								</div>
 								<div class="form-group">
-									<label for="contrasena" class="col-lg-3 control-label">Nombre</label>
+									<label for="contrasena" class="col-lg-3 control-label">Contraseña</label>
 									<div class="col-lg-9">
 										<input id="contrasena" name="contrasena" type="password" class="form-control" required />
 									</div>

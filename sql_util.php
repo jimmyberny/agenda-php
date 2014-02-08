@@ -18,9 +18,24 @@ function getFNames( $fields, $bindings )
     return $res;
 }
 
-function getSelect( $table, $whereFields = array() ) 
+function getSelect( $table, $whereFields = array(), $alias = '', $extra = '', $join = '' ) 
 {
-    $fs = implode( ', ', $table['fields'] );
+    if ( strlen( $alias ) != 0 )
+    {
+        $aliased = array();
+        foreach ($table['fields'] as $key) {
+            $aliased[] = $alias . '.' . $key;
+        }
+        $fs = implode( ', ', $aliased );
+    }
+    else
+    {
+        $fs = implode( ', ', $table['fields'] );
+    }
+    if ( strlen( $extra ) != 0 )
+    {
+        $fs .= ', ' . $extra;
+    }
 
     # Where
     $where = '';
@@ -32,12 +47,12 @@ function getSelect( $table, $whereFields = array() )
             $wf = $whereFields[$i];
             if ( is_array( $wf ) )
             { # %field% %cmp% :%field% [and]
-                $where .= $wf[0] . $wf[1] . ' :' . $wf[0];
+                $where .= ( strlen( $alias ) == 0 ? '' : $alias . '.' ) . $wf[0] . $wf[1] . ' :' . $wf[0];
                 $where .= ( $i == $last ? '' : ' and ');
             }
             else
             { # %field% = :%field% [and]
-                $where .= $wf . ' = :' . $wf . ( $i == $last ? '' : ' and ' );
+                $where .= ( strlen( $alias ) == 0 ? '' : $alias . '.' ) . $wf . ' = :' . $wf . ( $i == $last ? '' : ' and ' );
             }
         }
     }
@@ -56,7 +71,7 @@ function getSelect( $table, $whereFields = array() )
     {
         $ob = ""; 
     }
-    return "select " . $fs . " from " . $table['name'] . $where . ' ' . $ob;
+    return "select " . $fs . " from " . $table['name']  . ( strlen( $alias ) == 0 ? '' : ' as ' . $alias ) . ' ' . $join . ' ' . $where . ' ' . $ob;
 }
 
 function getSelectByIds( $table ) {

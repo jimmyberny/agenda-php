@@ -7,3 +7,4 @@
         <link rel="stylesheet" href="res/css/bootstrap.css">
         <link rel="stylesheet" href="res/css/bootstrap-theme.css">
         <link rel="stylesheet" href="res/css/agenda.css">
+        <link rel="stylesheet" href="res/css/bootstrap-datetimepicker.min.css">
