@@ -28,6 +28,7 @@
 		<a href="#" class="dropdown-toggle" data-toggle="dropdown">Clientes<b class="caret"></b></a>
 		<ul class="dropdown-menu">
 			<li><a href="clientes.php">Clientes</a></li>
+			<li><a href="programar_visita.php">Agendar visita</a></li>
 		</ul>
 	</li>
 </ul>

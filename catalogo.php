@@ -37,6 +37,11 @@ function is_item()
 	return compare_action( 'item' );
 }
 
+function is_filtrar() 
+{
+	return compare_action( 'filtrar' );
+}
+
 function get_item_id( $key = 'id', $array = array() )
 {
 	if ( count($array) == 0 )

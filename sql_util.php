@@ -1,6 +1,16 @@
 <?php 
 #Funciones util para generar el sql
 
+function aliased ( $table, $alias )
+{
+    $fields = array();
+    foreach ( $table[ 'fields' ] as $val )
+    {
+        $fields[] = $alias . '.' . $val;
+    }
+    return 'select ' . implode(', ', $fields ) . ' from ' . $table[ 'name' ] . ' as ' . $alias;  
+}
+
 function getFNames( $fields, $bindings ) 
 {
     $res = array();

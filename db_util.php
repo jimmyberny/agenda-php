@@ -204,4 +204,9 @@ function doDelete( $table, $data )
 	return $res;
 }
 
+function is_valid_string( $var )
+{
+	return strlen( $var ) != 0;
+}
+
 ?>

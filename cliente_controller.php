@@ -24,5 +24,9 @@ else if ( is_buscar() )
 {
 	echo json_encode( listar_cliente_by( $_GET ) );
 }
+else if ( is_filtrar() )
+{
+	echo json_encode( filtrar_cliente_by( $_GET ) );
+}
 
 ?>

@@ -286,10 +286,6 @@ require_once( 'admin.php' );
 					});
 			}
 
-			function csEstado(data, fun) {
-
-			}
-
 			function mostrarItem(itemId) {
 				$.getJSON(control, 
 					{accion: 'item', id: itemId},
