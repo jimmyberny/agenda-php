@@ -87,4 +87,13 @@ $t_cliente = array(
 	'ids'		=> array(0),
 	'order'		=> array(1, 2)
 	);
+
+$t_visita = array(
+	'name'		=> 'visita',
+	'fields'	=> array('id', 'id_usuario', 'id_cliente', 'id_supervisor', 'fecha', 
+		'fecha_programada', 'asunto', 'estado'),
+	'form'		=> array(),
+	'ids'		=> array(0),
+	'order'		=> array(4)
+	);
 ?>

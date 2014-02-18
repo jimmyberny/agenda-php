@@ -18,6 +18,8 @@ if ( match('login', $accion) )
 		session_start();
 		$_SESSION['sid'] = uniqid();
 		$_SESSION['usuario'] = $res['usuario'];
+		error_log('Usuario: ' . $_SESSION['usuario']['id'] );
+
 		// Login exitoso
 	}
 }

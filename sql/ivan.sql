@@ -142,6 +142,8 @@ create table configuracion (
 ) engine = InnoDB;
 
 
-
+alter table visita add column asunto varchar(255) not null;
+alter table visita add column fecha datetime not null after id_supervisor;
+alter table visita add column estado integer not null;
 
 

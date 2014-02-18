@@ -67,11 +67,10 @@ require_once( 'admin.php' );
                         <!-- termina configuracion de smtp -->
                     </form>
                 </div>
-                <!-- Mensajes -->
-                <div id="mensajes">
-                </div>
             </div>
-                        
+            <!-- Mensajes -->
+            <div id="mensajes">
+            </div>
         </div>
         <!-- Empieza el pie -->
         <?php include 'footer.php' ?>

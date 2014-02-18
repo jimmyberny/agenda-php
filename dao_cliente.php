@@ -38,7 +38,7 @@ function filtrar_cliente_by( $datos )
 		}
 		if ( is_valid_string( $datos[ 'cliente' ] ) )
 		{
-			$filtro['cl.nombre'] = array( 'form' => 'cliente', 'comp' => ' like ', 'nexo' => 'and');
+			$filtro['cl.cliente'] = array( 'form' => 'cliente', 'comp' => ' like ', 'nexo' => 'and');
 			$datos[ 'cliente' ] = '%' . $datos[ 'cliente' ] . '%';
 		}
 		if ( is_valid_string( $datos[ 'razon_social' ] ) )
@@ -86,6 +86,7 @@ function filtrar_cliente_by( $datos )
 		{
 			$campo = is_array( $v ) ? $v[ 'form' ] : $v ;
 			$pss-> bindParam( ':' . $campo, $datos[ $campo ] );
+			error_log( $datos[ $campo ] );
 		}
 		$pss->execute();
 		$rs = $pss->fetchAll( PDO::FETCH_ASSOC );

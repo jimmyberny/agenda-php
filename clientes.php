@@ -18,35 +18,46 @@ require_once( 'admin.php' );
 		<script id="options-estado-tmpl" type="text/template">
 			<option value="" label="" selected />
 			{{#estados}}
-			<option value="{{id}}" label="{{nombre}}" />
+			<option value="{{id}}" label="{{nombre}}" >
+			{{nombre}}
+			</option>
 			{{/estados}}
 		</script>
 
 		<script id="options-municipio-tmpl" type="text/template">
 			<option value="" label="" selected />
 			{{#municipios}}
-			<option value="{{id}}" label="{{nombre}}" />
+			<option value="{{id}}" label="{{nombre}}" >
+			{{nombre}}
+			</option>
 			{{/municipios}}
 		</script>
 
 		<script id="options-localidad-tmpl" type="text/template">
 			<option value="" label="" selected />
 			{{#localidades}}
-			<option value="{{id}}" label="{{nombre}}" />
+			<option value="{{id}}" label="{{nombre}}" >
+			{{nombre}}
+			</option>
 			{{/localidades}}
 		</script>
 
 		<script id="options-rango-tmpl" type="text/template">
-			<option value="" label="" selected />
+			<option value="" label="" selected >
+			</option>
 			{{#rangos}}
-			<option value="{{id}}" label="{{nombre}}" />
+			<option value="{{id}}" label="{{nombre}}" >
+			{{nombre}}
+			</option>
 			{{/rangos}}
 		</script>
 
 		<script id="options-giro-tmpl" type="text/template">
 			<option value="" label="" selected />
 			{{#giros}}
-			<option value="{{id}}" label="{{nombre}}" />
+			<option value="{{id}}" label="{{nombre}}">
+			{{nombre}}
+			</option>
 			{{/giros}}
 		</script>
 	</head>
@@ -160,9 +171,11 @@ require_once( 'admin.php' );
 									</div>
 								</div>
 								<div class="form-group">
-									<label for="fecha_inicio" class="col-lg-3 control-label">Fecha inicio</label>
+									<label for="fecha_inicio" class="col-lg-3 control-label">Fecha inicio de operaciones</label>
 									<div class="col-lg-9 input-group date" id="dtp_fecha_inicio">
-										<input id="fecha_inicio" name="fecha_inicio" type="text" class="form-control" required />
+										<input id="fecha_inicio" name="fecha_inicio" 
+											data-format="YYYY-MM-DD HH:mm:ss" type="text" class="form-control" 
+											disabled />
 										<span class="input-group-addon">
 											<span class="glyphicon glyphicon-calendar" />
 										</span>
@@ -206,7 +219,7 @@ require_once( 'admin.php' );
 
 			$(document).ready(function() {
 				// Añadir datepicker
-				$('#dtp_fecha_inicio').datetimepicker();
+				$('#dtp_fecha_inicio').datetimepicker({pickTime: false});
 
 				// Actualizar la lista de clientes
 				cargarLista();

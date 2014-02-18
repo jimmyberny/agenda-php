@@ -8,7 +8,8 @@ require_once( 'sql_util.php' );
 try 
 {
     $con = new PDO( 'mysql:host=' . PATH . ';dbname=' . DATABASE, USER, PASSWORD, 
-    array( PDO::ATTR_PERSISTENT => true ) );
+    	array( PDO::ATTR_PERSISTENT => true) );
+    $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } 
 catch ( PDOException $ex ) 
 {

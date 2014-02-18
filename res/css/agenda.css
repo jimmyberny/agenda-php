@@ -33,3 +33,11 @@ div.item-form {
 	max-height: 320px; 
 	overflow: auto;
 }
+
+div.label-visita {
+	text-align: right;
+}
+
+div.info-visita {
+	text-decoration: bold;
+}

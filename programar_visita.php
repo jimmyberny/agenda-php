@@ -40,6 +40,17 @@ require_once( 'admin.php' );
 			{{/localidades}}
 		</script>
 
+		<script id="options-supervisor-tmpl" type="text/template">
+			<option value="" label="Elegir supervisor" default selected >
+				Elegir supervisor
+			</option>
+			{{#supervisores}}
+			<option value="{{id}}" label="{{nombre}}" >
+				{{nombre}}
+			</option>
+			{{/supervisores}}
+		</script>
+
 		<script id="tabla-clientes-tmpl" type="text/template">
 			<table class="table table-striped">
 				<thead>
@@ -54,7 +65,9 @@ require_once( 'admin.php' );
 					<tr>
 						<td>{{razon_social}}</td>
 						<td>{{cliente}}</td>
-						<td>{{id}}</td>
+						<td><button class="btn btn-small btn-primary" onclick="agendarVisita('{{id}}', '{{cliente}}')">
+						Agendar visita
+						</button></td>
 					</tr>
 					{{/clientes}}
 					{{^clientes}}
@@ -97,17 +110,17 @@ require_once( 'admin.php' );
 								</div>
 								<div class="form-group">
 									<label for="id_municipio">Por municipio</label>
-									<select id="id_municipio" name="id_municipio" placeholder="Municipio" class="form-control">
+									<select id="id_municipio" name="id_municipio" class="form-control">
 									</select>
 								</div>
 								<div class="form-group">
 									<label for="id_localidad">Por localidad</label>
-									<select id="id_localidad" name="id_localidad" placeholder="Localidad" class="form-control">
+									<select id="id_localidad" name="id_localidad" class="form-control">
 									</select>
 								</div>
 							</form>
 							<div >
-									<button id="btn-limpiar"class="btn btn-default" type="button" >
+									<button id="btn-limpiar"class="btn btn-default" type="reset" form="frm-filtro">
 										Limpiar
 									</button>
 									<button id="btn-buscar" class="btn btn-primary" type="button" >
@@ -122,9 +135,77 @@ require_once( 'admin.php' );
 						<div class="panel-heading">
 							<h3 class="panel-title">Clientes</h3>
 						</div>
-						<div id="tabla-clientes" class="panel-body">
-							<!-- Aqui van los clientes encontrados -->
+						<div id="contenido" class="panel-body">
+							<div id="tabla-clientes" >
+								<!-- Aqui van los clientes encontrados -->
+							</div>
+							<div id="form-visita" style="display: none" >
+								<form id="frm-visita">
+									<!-- Campos ocultos -->
+									<input type="hidden" id="id_usuario" name="id_usuario" value="<?php echo $_SESSION['usuario']['id']; ?>" />
+									<input type="hidden" id="id_cliente" name="id_cliente" value="" />
+									<input type="hidden" id="accion" name="accion" value="guardar" />
+									<!-- Campos visibles -->
+									<div class="row">
+										<div class="form-group col-md-8">
+											<label for="usuario">Usuario</label>
+											<input id="usuario" name="usuario" type="text" class="form-control" 
+												disabled value="<?php echo $_SESSION['usuario']['nombre']; ?>" />
+										</div>
+										<div class="form-group col-md-4">
+											<label for="fecha">Fecha</label>
+											<!-- cargarla con js -->
+											<input id="fecha" name="fecha" type="text" disabled class="form-control" />
+										</div>
+									</div>
+									<div class="row">
+										<div class="form-group col-md-8">
+											<label for="id_supervisor">Supervisor</label>
+											<select id="id_supervisor" name="id_supervisor" class="form-control">
+											</select>
+										</div>
+										<div class="form-group col-md-4">
+											<label for="fecha_programada" class="control-label">Fecha programada</label>
+											<div class="input-group date" id="dtp_fecha_programada">
+												<input id="fecha_programada" name="fecha_programada" 
+													data-format="YYYY-MM-DD HH:mm:ss" type="text" class="form-control" 
+													required />
+												<span class="input-group-addon">
+													<span class="glyphicon glyphicon-calendar" />
+												</span>
+											</div>
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label for="a_cliente">Cliente</label>
+										<input id="a_cliente" name="a_cliente" type="text" class="form-control" disabled />
+									</div>
+									<div class="form-group">
+										<label for="asunto">Asunto</label>
+										<input id="asunto" name="asunto" type="text" class="form-control"/>
+									</div>
+								</form>
+							</div>
 						</div>
+						<div id="controles" class="panel-footer" style="display: none">
+							<div class="btn-group">
+								<button id="boton-cancelar" class="btn btn-default" type="reset" form="frm-visita" >
+									<span class="glyphicon glyphicon-refresh"></span> Limpiar
+								</button>
+							</div>
+							<div class="btn-group pull-right">
+								<button class="btn btn-default" type="button" onclick="guardar()">
+									<span class="glyphicon glyphicon-floppy-disk"></span> Guardar
+								</button>
+								<button class="btn btn-default" type="button" onclick="cancelar()">
+									<span class="glyphicon glyphicon-ban-circle"></span> Cancelar
+								</button>
+							</div>
+						</div>
+					</div>
+					<!-- Mensajes -->
+					<div id="mensajes">
 					</div>
 				</div>
 			</div>
@@ -137,6 +218,9 @@ require_once( 'admin.php' );
 		<?php include 'basic_js.php' ?>
 		<script type="text/javascript">
 			$(document).ready(function() {
+				// Añadir datepicker
+				$('#dtp_fecha_programada').datetimepicker();
+
 				$('#id_estado').bind('change', function() {
 						cargarSelect('id_municipio', 'id_estado', this.value);
 					});
@@ -149,12 +233,7 @@ require_once( 'admin.php' );
 						cargarSelect('id_localidad', 'id_municipio', this.value);
 					});
 
-				// Resetear el formulario
-				$('#btn-limpiar').bind('click', function() {
-					$('#frm-filtro')[0].reset();
-				});
-
-				// Filtrar resultados
+				// Filtrar resultados bind
 				$('#btn-buscar').bind('click', function() {
 					var params = $('#frm-filtro').serializeArray();
 					$.get('cliente_controller.php',
@@ -167,6 +246,7 @@ require_once( 'admin.php' );
 							}
 						});
 				});
+
 			});
 
 			function cargarSelect(tipo, campo, valor, callback) {
@@ -184,6 +264,49 @@ require_once( 'admin.php' );
 					});
 			}
 
+			function agendarVisita(id, cliente) {
+				$('#tabla-clientes').hide();
+				
+				// Set values
+				$('#id_cliente').val(id);
+				$('#a_cliente').val(cliente);
+				$.getJSON('supervisor_controller.php',
+					{accion: 'lista'},
+					function(json) {
+						$('#id_supervisor').html(Mustache.to_html($('#options-supervisor-tmpl').html() , json));
+					});
+
+				// Mostrar form
+				$('#form-visita').show();
+				$('#controles').show();
+
+				// Poner la fecha de ahora
+				console.log(moment().format());
+				$('#fecha').val(moment().format("DD-MM-YYYY"));
+			}
+
+			function cancelar() {
+				$('#form-visita').hide();	
+				$('#controles').hide();
+
+				$('#tabla-clientes').show();
+			}
+
+			function guardar() {
+				// no tengo que inyectar la accion, ya va en el form
+				var params = $('#frm-visita').serializeArray();
+				
+				$.post('visita_controller.php',
+					params,
+					function(json) {
+						if ( json.resultado ) {
+							$('#frm-visita')[0].reset();
+							uxSuccessAlert('Visita agendada correctamente');
+						} else {
+							uxErrorAlert('No se pudo agendar la visita, intente nuevamente.' + json.error);
+						}
+					});
+			}
 
 		</script>
 		<!-- Termina javascript -->
