@@ -56,7 +56,7 @@ require_once( 'admin.php' );
 							</div>
 						</div>
 						<div class="col-md-1" style="border-left: 1px solid black">
-							<a href="programa_visita.php">
+							<a href="reportar_visita.php?id_visita={{id}}">
 								<span class="glyphicon glyphicon-ok-circle"></span>
 							</a>
 						</div>

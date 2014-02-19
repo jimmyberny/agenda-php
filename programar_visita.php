@@ -148,19 +148,19 @@ require_once( 'admin.php' );
 									<!-- Campos visibles -->
 									<div class="row">
 										<div class="form-group col-md-8">
-											<label for="usuario">Usuario</label>
+											<label for="usuario" class="control-label">Usuario</label>
 											<input id="usuario" name="usuario" type="text" class="form-control" 
 												disabled value="<?php echo $_SESSION['usuario']['nombre']; ?>" />
 										</div>
 										<div class="form-group col-md-4">
-											<label for="fecha">Fecha</label>
+											<label for="fecha" class="control-label">Fecha</label>
 											<!-- cargarla con js -->
 											<input id="fecha" name="fecha" type="text" disabled class="form-control" />
 										</div>
 									</div>
 									<div class="row">
 										<div class="form-group col-md-8">
-											<label for="id_supervisor">Supervisor</label>
+											<label for="id_supervisor" class="control-label">Supervisor</label>
 											<select id="id_supervisor" name="id_supervisor" class="form-control">
 											</select>
 										</div>
@@ -178,11 +178,11 @@ require_once( 'admin.php' );
 									</div>
 
 									<div class="form-group">
-										<label for="a_cliente">Cliente</label>
+										<label for="a_cliente" class="control-label">Cliente</label>
 										<input id="a_cliente" name="a_cliente" type="text" class="form-control" disabled />
 									</div>
 									<div class="form-group">
-										<label for="asunto">Asunto</label>
+										<label for="asunto" class="control-label">Asunto</label>
 										<input id="asunto" name="asunto" type="text" class="form-control"/>
 									</div>
 								</form>

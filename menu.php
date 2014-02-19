@@ -10,7 +10,7 @@
 		<ul class="dropdown-menu">
 			<li><a href="usuarios.php">Usuarios</a></li>
 			<li><a href="supervisores.php">Supervisores</a></li>
-			<li><a href="configuracion.php">Configuración</a></li>
+			<!-- <li><a href="configuracion.php">Configuración</a></li> -->
 		</ul>
 	</li>
 	<li class="dropdown">
@@ -29,6 +29,7 @@
 		<ul class="dropdown-menu">
 			<li><a href="clientes.php">Clientes</a></li>
 			<li><a href="programar_visita.php">Agendar visita</a></li>
+			<!-- <li><a href="reportar_visita.php">Reportar visita</a></li> -->
 		</ul>
 	</li>
 </ul>

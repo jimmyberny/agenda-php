@@ -16,7 +16,9 @@ require_once( 'admin.php' );
 		</script>
 
 		<script id="options-estado-tmpl" type="text/template">
-			<option value="" label="" selected />
+			<option value="" label="Seleccionar estado" selected >
+				Seleccionar estado
+			</option>
 			{{#estados}}
 			<option value="{{id}}" label="{{nombre}}" >
 			{{nombre}}
@@ -25,7 +27,9 @@ require_once( 'admin.php' );
 		</script>
 
 		<script id="options-municipio-tmpl" type="text/template">
-			<option value="" label="" selected />
+			<option value="" label="Seleccionar municipio" selected >
+				Seleccionar municipio
+			</option>
 			{{#municipios}}
 			<option value="{{id}}" label="{{nombre}}" >
 			{{nombre}}
@@ -34,7 +38,9 @@ require_once( 'admin.php' );
 		</script>
 
 		<script id="options-localidad-tmpl" type="text/template">
-			<option value="" label="" selected />
+			<option value="" label="Seleccionar localidad" selected >
+				Seleccionar localidad
+			</option>
 			{{#localidades}}
 			<option value="{{id}}" label="{{nombre}}" >
 			{{nombre}}
@@ -43,7 +49,8 @@ require_once( 'admin.php' );
 		</script>
 
 		<script id="options-rango-tmpl" type="text/template">
-			<option value="" label="" selected >
+			<option value="" label="Seleccionar rango de ventas" selected >
+				Seleccionar rango de ventas
 			</option>
 			{{#rangos}}
 			<option value="{{id}}" label="{{nombre}}" >
@@ -53,7 +60,9 @@ require_once( 'admin.php' );
 		</script>
 
 		<script id="options-giro-tmpl" type="text/template">
-			<option value="" label="" selected />
+			<option value="" label="Seleccionar giro comercial" selected >
+				Seleccionar giro comercial
+			</option>
 			{{#giros}}
 			<option value="{{id}}" label="{{nombre}}">
 			{{nombre}}

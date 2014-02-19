@@ -17,6 +17,10 @@ else if ( is_filtrar() )
 	$_GET['estado'] = PENDIENTE;
 	echo json_encode( listar_visita($_GET) );
 }
+else if ( is_item() )
+{
+	echo json_encode( get_visita( $_GET ) );
+}
 else
 {
 	echo json_encode( array('resultado' => false, 'error' => 'Llamada incorrecta') );
