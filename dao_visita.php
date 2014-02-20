@@ -17,6 +17,7 @@ function guardar_visita( $datos )
 	// id_cliente
 	// id_supervisor
 	error_log('id_supervisor: ' . $datos['id_supervisor'] );
+	date_default_timezone_set('America/Chicago');
 	$datos[ 'fecha' ] = date("Y-m-d H:i:s"); // fecha, use now() // MySQL format
 	// fecha_programada
 	// asunto
