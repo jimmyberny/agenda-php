@@ -126,11 +126,11 @@ require_once( 'admin.php' );
 			$(document).ready(function(){
 				// Obtener  el limite del dia de hoy
 				var hoy = moment().endOf('d');
-				console.log(hoy.format('YYYY-MM-DD hh:mm:ss'));
+				console.log(hoy.format('YYYY-MM-DD HH:mm:ss'));
 				var semana = moment().endOf('w');
-				console.log(semana.format('YYYY-MM-DD hh:mm:ss'));
+				console.log(semana.format('YYYY-MM-DD HH:mm:ss'));
 				var mes = moment().endOf('M');
-				console.log(mes.format('YYYY-MM-DD hh:mm:ss'));
+				console.log(mes.format('YYYY-MM-DD HH:mm:ss'));
 
 				// Do calls
 				filtrarVisitas(hoy, 'visitas-hoy');
@@ -141,7 +141,7 @@ require_once( 'admin.php' );
 			function filtrarVisitas(momento, panel) {
 				// Do calls
 				$.getJSON('visita_controller.php', 
-					{accion: 'filtrar', fecha: momento.format('YYYY-MM-DD hh:mm:ss')},
+					{accion: 'filtrar', fecha: momento.format('YYYY-MM-DD HH:mm:ss')},
 					function(json) {
 						if (json.resultado) {
 							$('#' + panel).html(Mustache.to_html($('#visitas-tmpl').html() , json));
