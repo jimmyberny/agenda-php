@@ -21,6 +21,11 @@ else if ( is_item() )
 {
 	echo json_encode( get_visita( $_GET ) );
 }
+else if ( compare_action( 'cancelar' ) )
+{
+	// Llegada por post, por seguridad
+	echo json_encode( cancelar_visita( $_POST[ 'id' ] ) );
+}
 else
 {
 	echo json_encode( array('resultado' => false, 'error' => 'Llamada incorrecta') );

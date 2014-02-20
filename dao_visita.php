@@ -112,4 +112,34 @@ function listar_visita( $datos )
 		die();
 	}
 }
+
+function cancelar_visita( $id_visita )
+{
+	global $con;
+	try
+	{
+		$qae = 'update visita set estado = :estado where id = :id';
+		$pss = $con->prepare( $qae );
+
+		$estado = CANCELADA;
+		$pss->bindParam( ':estado', $estado );
+		$pss->bindParam( ':id', $id_visita );
+		$ok = $pss->execute();
+
+		if ( $ok and $pss->rowCount() != 0 )
+		{
+			// 
+			$res = array( 'resultado' => true, 'mensaje' => 'Visita cancelada');
+		}
+		else
+		{
+			$res = array( 'resultado' => false, 'error' => 'La visita no se ha podido cancelar' );
+		}
+	}
+	catch ( PDOException $ex )
+	{
+		$res = array( 'resultado' => false, 'error' => $ex->getMessage() );
+	}
+	return $res;
+}
 ?>

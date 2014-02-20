@@ -55,10 +55,15 @@ require_once( 'admin.php' );
 								</div>
 							</div>
 						</div>
-						<div class="col-md-1" style="border-left: 1px solid black">
-							<a href="reportar_visita.php?id_visita={{id}}">
-								<span class="glyphicon glyphicon-ok-circle"></span>
-							</a>
+						<div class="col-md-1">
+							<div class="btn-group-vertical">
+								<button type="button" class="btn btn-primary" onclick="reportarVisita('{{id}}')">
+									<span class="glyphicon glyphicon-ok"></span>
+								</button>
+								<button type="button" class="btn btn-danger" onclick="mostrarCancelar('{{id}}')">
+									<span class="glyphicon glyphicon-remove"></span>
+								</button>
+							</div>
 						</div>
 					</div>
 				</li>
@@ -114,6 +119,28 @@ require_once( 'admin.php' );
 				</div>
 			</div>
 
+			<div class="modal fade" id="dlg-cancelar" tabindex="-1" role="dialog" aria-labelledby="dlg-cancelar-titulo" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h4 class="modal-title" id="dlg-cancelar-titulo">Cancelar visita</h4>
+						</div>
+						<div class="modal-body">
+							<p>¿Desea cancelar la visita?</p>
+							<p>Presione <strong>Si</strong> para continuar</p>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">
+								Cancelar
+							</button>
+							<button id="btn-cancelar-visita" type="button" class="btn btn-primary">
+								Si
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 		<!-- Termina el contenido -->
 		<!-- Empieza el pie -->
@@ -124,6 +151,10 @@ require_once( 'admin.php' );
 
 		<script type="text/javascript">
 			$(document).ready(function(){
+				cargarVisitas();
+			});
+
+			function cargarVisitas() {
 				// Obtener  el limite del dia de hoy
 				var hoy = moment().endOf('d');
 				console.log(hoy.format('YYYY-MM-DD HH:mm:ss'));
@@ -136,7 +167,7 @@ require_once( 'admin.php' );
 				filtrarVisitas(hoy, 'visitas-hoy');
 				filtrarVisitas(semana, 'visitas-semana');
 				filtrarVisitas(mes, 'visitas-mes');
-			});
+			}
 
 			function filtrarVisitas(momento, panel) {
 				// Do calls
@@ -152,11 +183,32 @@ require_once( 'admin.php' );
 					});
 			}
 
-			function trimFecha(fecha) {
-				fecha.seconds(0);
-				fecha.minutes(0);
-				fecha.hours(0);
-				return fecha;
+			function reportarVisita(id) {
+				// xD
+				document.location = "reportar_visita.php?id_visita=" + id; 
+			}
+
+			function mostrarCancelar(id) {
+				console.log('Mostrar dialogo: ' + id);
+				$('#dlg-cancelar').modal('show');
+				$('#btn-cancelar-visita').one('click', function() {
+					cancelarVisita(id);	
+				});
+			}
+
+			function cancelarVisita(id_visita) {
+				// n_n
+				$.post('visita_controller.php',
+					{accion: 'cancelar', id: id_visita},
+					function(json) {
+						if (json.resultado) {
+							$('#dlg-cancelar').modal('hide');
+							cargarVisitas();
+							uxSuccessAlert(json.mensaje);
+						} else {
+							uxErrorAlert(json.error);
+						}
+					});
 			}
 		</script>
 		<!-- Termina javascript -->

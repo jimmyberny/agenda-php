@@ -219,7 +219,12 @@ require_once( 'admin.php' );
 		<script type="text/javascript">
 			$(document).ready(function() {
 				// Añadir datepicker
-				$('#dtp_fecha_programada').datetimepicker();
+				var test = moment().format('YYYY-MM-DD');
+				console.log('Fecha: ' + test);
+				$('#dtp_fecha_programada').datetimepicker({
+					startDate: test,
+					defaultDate: moment()
+				});
 
 				$('#id_estado').bind('change', function() {
 						cargarSelect('id_municipio', 'id_estado', this.value);
